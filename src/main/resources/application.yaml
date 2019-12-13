@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  banner:
+    charset: UTF-8
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+    converters:
+      preferred-json-mapper: gson
+  messages:
+    encoding: UTF-8
+  profiles:
+    active: dev
+  application:
+    name: dremel
+
+
+application:
+  version: 1.0.0
+
+logging:
+  level:
+    hive:
+      metastore: off
