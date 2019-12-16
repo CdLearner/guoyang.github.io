@@ -27,3 +27,6 @@ logging:
   level:
     hive:
       metastore: off
+    org:
+      apache:
+        hadoop: info

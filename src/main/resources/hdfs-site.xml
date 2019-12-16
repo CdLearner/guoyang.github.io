@@ -1,0 +1,864 @@
+<configuration  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+    <property>
+        <name>dfs.balance.bandwidthPerSec</name>
+        <value>5242880000</value>
+    </property>
+
+    <property>
+        <name>dfs.balancer.dispatcherThreads</name>
+        <value>20</value>
+    </property>
+
+    <property>
+        <name>dfs.balancer.moverThreads</name>
+        <value>10</value>
+    </property>
+
+    <property>
+        <name>dfs.block.access.token.enable</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.blockreport.incremental.intervalMsec</name>
+        <value>300</value>
+    </property>
+
+    <property>
+        <name>dfs.blockreport.initialDelay</name>
+        <value>120</value>
+    </property>
+
+    <property>
+        <name>dfs.blockreport.intervalMsec</name>
+        <value>86400000</value>
+        <text>true</text>
+    </property>
+
+    <property>
+        <name>dfs.blockreport.split.threshold</name>
+        <value>300000</value>
+    </property>
+
+    <property>
+        <name>dfs.blocksize</name>
+        <value>268435456</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.hcat2cluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.hcat3cluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.hcat4cluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.hcat5cluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.hcat6cluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.hcat7cluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.hcat8cluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.hcatcluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.hdfscluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.hiidocluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.logs2cluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.logscluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.sdcluster01</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.yycluster01</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.yycluster02</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.zhgamecluster</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.client.read.shortcircuit</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.client.read.shortcircuit.streams.cache.size</name>
+        <value>4096</value>
+    </property>
+
+    <property>
+        <name>dfs.client.retry.policy.enabled</name>
+        <value>false</value>
+    </property>
+
+    <property>
+        <name>dfs.client.socket-timeout</name>
+        <value>180000</value>
+    </property>
+
+    <property>
+        <name>dfs.cluster.administrators</name>
+        <value>hdfs</value>
+    </property>
+
+    <property>
+        <name>dfs.content-summary.limit</name>
+        <value>5000</value>
+    </property>
+
+    <property>
+        <name>dfs.data.transfer.protection</name>
+        <value>authentication,privacy</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.address</name>
+        <value>0.0.0.0:1019</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.available-space-volume-choosing-policy.balanced-space-preference-fraction</name>
+        <value>0.75f</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.available-space-volume-choosing-policy.balanced-space-threshold</name>
+        <value>10737418240</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.balance.bandwidthPerSec</name>
+        <value>6250000</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.balance.max.concurrent.moves</name>
+        <value>10</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>/data1/hadoop/dfs/data,/data2/hadoop/dfs/data,/data3/hadoop/dfs/data,/data4/hadoop/dfs/data,/data5/hadoop/dfs/data,/data6/hadoop/dfs/data,/data7/hadoop/dfs/data,/data8/hadoop/dfs/data,/data9/hadoop/dfs/data,/data10/hadoop/dfs/data,/data11/hadoop/dfs/data,/data12/hadoop/dfs/data</value>
+        <final>true</final>
+    </property>
+
+    <property>
+        <name>dfs.datanode.data.dir.perm</name>
+        <value>750</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.directoryscan.threads</name>
+        <value>8</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.du.reserved</name>
+        <value>536870912000</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.failed.volumes.tolerated</name>
+        <value>6</value>
+        <final>true</final>
+    </property>
+
+    <property>
+        <name>dfs.datanode.fsdataset.volume.choosing.policy</name>
+        <value>org.apache.hadoop.hdfs.server.datanode.fsdataset.AvailableSpaceVolumeChoosingPolicy</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.handler.count</name>
+        <value>55</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.http.address</name>
+        <value>0.0.0.0:1022</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.https.address</name>
+        <value>0.0.0.0:53475</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.ipc.address</name>
+        <value>0.0.0.0:38010</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.kerberos.principal</name>
+        <value>dn/_HOST@YYDEVOPS.COM</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.keytab.file</name>
+        <value>/etc/security/keytabs/dn.service.keytab</value>
+    </property>
+
+    <property>
+        <name>dfs.datanode.max.transfer.threads</name>
+        <value>16384</value>
+    </property>
+
+    <property>
+        <name>dfs.domain.socket.path</name>
+        <value>/var/lib/hadoop-hdfs/dn_socket</value>
+    </property>
+
+    <property>
+        <name>dfs.encrypt.data.transfer.cipher.suites</name>
+        <value>AES/CTR/NoPadding</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.automatic-failover.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.fencing.methods</name>
+        <value>shell(/bin/true)</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.fencing.ssh.connect-timeout</name>
+        <value>10000</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.fencing.ssh.private-key-files</name>
+        <value>/home/hdfs/.ssh/id_rsa</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.log-roll.period</name>
+        <value>60</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.hcat2cluster</name>
+        <value>hcat2nn1,hcat2nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.hcat3cluster</name>
+        <value>hcat3nn1,hcat3nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.hcat4cluster</name>
+        <value>hcat4nn1,hcat4nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.hcat5cluster</name>
+        <value>hcat5nn1,hcat5nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.hcat6cluster</name>
+        <value>hcat6nn1,hcat6nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.hcat7cluster</name>
+        <value>hcat7nn1,hcat7nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.hcat8cluster</name>
+        <value>hcat8nn1,hcat8nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.hcatcluster</name>
+        <value>hcatnn1,hcatnn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.hdfscluster</name>
+        <value>nn1,nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.hiidocluster</name>
+        <value>hiidonn1,hiidonn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.logs2cluster</name>
+        <value>logs2nn1,logs2nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.logscluster</name>
+        <value>logsnn1,logsnn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.sdcluster01</name>
+        <value>sdnn1,sdnn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.yycluster01</name>
+        <value>nn1,nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.yycluster02</name>
+        <value>nn3,nn4</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.zhgamecluster</name>
+        <value>zhgamenn1,zhgamenn2</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.tail-edits.period</name>
+        <value>30</value>
+    </property>
+
+    <property>
+        <name>dfs.heartbeat.interval</name>
+        <value>3</value>
+    </property>
+
+    <property>
+        <name>dfs.hosts.exclude</name>
+        <value>/etc/hadoop/conf/dfs.exclude</value>
+    </property>
+
+    <property>
+        <name>dfs.http.policy</name>
+        <value>HTTP_ONLY</value>
+    </property>
+
+    <property>
+        <name>dfs.https.port</name>
+        <value>53470</value>
+    </property>
+
+    <property>
+        <name>dfs.image.transfer.timeout</name>
+        <value>1200000</value>
+    </property>
+
+    <property>
+        <name>dfs.internal.nameservices</name>
+        <value>yycluster01,yycluster02</value>
+    </property>
+
+    <property>
+        <name>dfs.journalnode.edits.dir.yycluster01</name>
+        <value>/data/storage/hdfs/journal</value>
+    </property>
+
+    <property>
+        <name>dfs.journalnode.edits.dir.yycluster02</name>
+        <value>/data/storage/hdfs/journal</value>
+    </property>
+
+    <property>
+        <name>dfs.journalnode.http-address</name>
+        <value>0.0.0.0:38480</value>
+    </property>
+
+    <property>
+        <name>dfs.journalnode.https-address</name>
+        <value>0.0.0.0:38481</value>
+    </property>
+
+    <property>
+        <name>dfs.journalnode.kerberos.internal.spnego.principal</name>
+        <value>HTTP/_HOST@YYDEVOPS.COM</value>
+    </property>
+
+    <property>
+        <name>dfs.journalnode.kerberos.principal</name>
+        <value>jn/_HOST@YYDEVOPS.COM</value>
+    </property>
+
+    <property>
+        <name>dfs.journalnode.keytab.file</name>
+        <value>/etc/security/keytabs/jn.service.keytab</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.accesstime.precision</name>
+        <value>0</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.acls.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.audit.log.async</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.avoid.read.stale.datanode</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.avoid.write.stale.datanode</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.checkpoint.dir</name>
+        <value>/data/hadoop/dfs/namesecondary</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.checkpoint.edits.dir</name>
+        <value>/data/hadoop/dfs/editssecondary</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.checkpoint.period</name>
+        <value>21600</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.checkpoint.txns</name>
+        <value>1000000</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.fs-limits.max-directory-items</name>
+        <value>6400000</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.fslock.fair</name>
+        <value>false</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.handler.count</name>
+        <value>1400</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.http-address.yycluster01.nn1</name>
+        <value>fs-hiido-yycluster01-yynn1.hiido.host.yydevops.com:53070</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.http-address.yycluster01.nn2</name>
+        <value>fs-hiido-yycluster01-yynn2.hiido.host.yydevops.com:53070</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.http-address.yycluster02.nn3</name>
+        <value>fs-hiido-yycluster02-yynn1.hiido.host.yydevops.com:53070</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.http-address.yycluster02.nn4</name>
+        <value>fs-hiido-yycluster02-yynn2.hiido.host.yydevops.com:53070</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.https-address.yycluster01.nn1</name>
+        <value>fs-hiido-yycluster01-yynn1.hiido.host.yydevops.com:53470</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.https-address.yycluster01.nn2</name>
+        <value>fs-hiido-yycluster01-yynn2.hiido.host.yydevops.com:53470</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.https-address.yycluster02.nn3</name>
+        <value>fs-hiido-yycluster02-yynn1.hiido.host.yydevops.com:53470</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.https-address.yycluster02.nn4</name>
+        <value>fs-hiido-yycluster02-yynn2.hiido.host.yydevops.com:53470</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.inode.attributes.provider.class</name>
+        <value>org.apache.ranger.authorization.hadoop.RangerHdfsAuthorizer</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.kerberos.internal.spnego.principal</name>
+        <value>HTTP/_HOST@YYDEVOPS.COM</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.kerberos.principal</name>
+        <value>nn/_HOST@YYDEVOPS.COM</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.keytab.file</name>
+        <value>/etc/security/keytabs/nn.service.keytab</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>/data/storage/hadoop/dfs/name</value>
+        <final>true</final>
+    </property>
+
+    <property>
+        <name>dfs.namenode.name.dir.restore</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat2cluster.hcat2nn2</name>
+        <value>hcat2nn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat2cluster.hcat2nn1</name>
+        <value>hcat2nn1:28100</value>
+    </property>
+
+
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat3cluster.hcat3nn1</name>
+        <value>hcat3nn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat3cluster.hcat3nn2</name>
+        <value>hcat3nn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat4cluster.hcat4nn1</name>
+        <value>hcat4nn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat4cluster.hcat4nn2</name>
+        <value>hcat4nn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat5cluster.hcat5nn1</name>
+        <value>hcat5nn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat5cluster.hcat5nn2</name>
+        <value>hcat5nn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat6cluster.hcat6nn1</name>
+        <value>hcat6nn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat6cluster.hcat6nn2</name>
+        <value>hcat6nn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat7cluster.hcat7nn1</name>
+        <value>hcat7nn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat7cluster.hcat7nn2</name>
+        <value>hcat7nn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat8cluster.hcat8nn1</name>
+        <value>hcat8nn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcat8cluster.hcat8nn2</name>
+        <value>hcat8nn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcatcluster.hcatnn1</name>
+        <value>hcatnn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hcatcluster.hcatnn2</name>
+        <value>hcatnn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hdfscluster.nn1</name>
+        <value>hdfsnn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hdfscluster.nn2</name>
+        <value>hdfsnn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hiidocluster.hiidonn1</name>
+        <value>hiidonn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.hiidocluster.hiidonn2</name>
+        <value>hiidonn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.logs2cluster.logs2nn1</name>
+        <value>logs2nn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.logs2cluster.logs2nn2</name>
+        <value>logs2nn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.logscluster.logsnn1</name>
+        <value>logsnn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.logscluster.logsnn2</name>
+        <value>logsnn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.sdcluster01.sdnn1</name>
+        <value>fs-sd-hadoop-nn-21-113-88.idc.com:8120</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.sdcluster01.sdnn2</name>
+        <value>fs-sd-hadoop-nn-21-113-89.idc.com:8120</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.yycluster01.nn2</name>
+        <value>fs-hiido-yycluster01-yynn2.hiido.host.yydevops.com:38020</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.yycluster01.nn1</name>
+        <value>fs-hiido-yycluster01-yynn1.hiido.host.yydevops.com:38020</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.yycluster02.nn3</name>
+        <value>fs-hiido-yycluster02-yynn1.hiido.host.yydevops.com:38020</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.yycluster02.nn4</name>
+        <value>fs-hiido-yycluster02-yynn2.hiido.host.yydevops.com:38020</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.zhgamecluster.zhgamenn1</name>
+        <value>zhgamenn1:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.zhgamecluster.zhgamenn2</name>
+        <value>zhgamenn2:28100</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.safemode.threshold-pct</name>
+        <value>0.99</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.service.handler.count</name>
+        <value>400</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.servicerpc-address.yycluster01.nn1</name>
+        <value>fs-hiido-yycluster01-yynn1.hiido.host.yydevops.com:38022</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.servicerpc-address.yycluster01.nn2</name>
+        <value>fs-hiido-yycluster01-yynn2.hiido.host.yydevops.com:38022</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.servicerpc-address.yycluster02.nn3</name>
+        <value>fs-hiido-yycluster02-yynn1.hiido.host.yydevops.com:38022</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.servicerpc-address.yycluster02.nn4</name>
+        <value>fs-hiido-yycluster02-yynn2.hiido.host.yydevops.com:38022</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.shared.edits.dir.yycluster01</name>
+        <value>qjournal://fs-hiido-jnzk-21-116-2.hiido.host.yydevops.com:8485;fs-hiido-jnzk-21-116-3.hiido.host.yydevops.com:8485;fs-hiido-jnzk-21-116-4.hiido.host.yydevops.com:8485;fs-hiido-jnzk-21-116-5.hiido.host.yydevops.com:8485;fs-hiido-jnzk-21-116-6.hiido.host.yydevops.com:8485/yycluster01</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.shared.edits.dir.yycluster02</name>
+        <value>qjournal://fs-hiido-jnzk-21-116-2.hiido.host.yydevops.com:8485;fs-hiido-jnzk-21-116-3.hiido.host.yydevops.com:8485;fs-hiido-jnzk-21-116-4.hiido.host.yydevops.com:8485;fs-hiido-jnzk-21-116-5.hiido.host.yydevops.com:8485;fs-hiido-jnzk-21-116-6.hiido.host.yydevops.com:8485/yycluster02</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.stale.datanode.interval</name>
+        <value>30000</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.startup.delay.block.deletion.sec</name>
+        <value>3600</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.write.stale.datanode.ratio</name>
+        <value>1.0f</value>
+    </property>
+
+    <property>
+        <name>dfs.nameservices</name>
+        <value>yycluster01,yycluster02,hdfscluster,logscluster,hcatcluster,hiidocluster,zhgamecluster,hcat2cluster,logs2cluster,hcat3cluster,hcat4cluster,hcat5cluster,hcat6cluster,hcat7cluster,hcat8cluster,sdcluster01</value>
+    </property>
+
+    <property>
+        <name>dfs.permissions.ContentSummary.subAccess</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.permissions.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.permissions.superusergroup</name>
+        <value>hdfs</value>
+    </property>
+
+    <property>
+        <name>dfs.qjournal.write-txns.timeout.ms</name>
+        <value>60000</value>
+    </property>
+
+    <property>
+        <name>dfs.replication</name>
+        <value>3</value>
+    </property>
+
+    <property>
+        <name>dfs.replication.max</name>
+        <value>50</value>
+    </property>
+
+    <property>
+        <name>dfs.web.authentication.kerberos.keytab</name>
+        <value>/etc/security/keytabs/spnego.service.keytab</value>
+    </property>
+
+    <property>
+        <name>dfs.web.authentication.kerberos.principal</name>
+        <value>HTTP/_HOST@YYDEVOPS.COM</value>
+    </property>
+
+    <property>
+        <name>dfs.webhdfs.enabled</name>
+        <value>true</value>
+        <final>true</final>
+    </property>
+
+    <property>
+        <name>fs.permissions.umask-mode</name>
+        <value>077</value>
+    </property>
+
+    <property>
+        <name>hadoop.caller.context.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>manage.include.files</name>
+        <value>false</value>
+    </property>
+
+    <property>
+        <name>nfs.exports.allowed.hosts</name>
+        <value>* rw</value>
+    </property>
+
+    <property>
+        <name>nfs.file.dump.dir</name>
+        <value>/tmp/.hdfs-nfs</value>
+    </property>
+</configuration>

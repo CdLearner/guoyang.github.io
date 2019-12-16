@@ -1,22 +1,24 @@
 package com.hiido.utils;
 
 import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.security.UserGroupInformation;
-import org.assertj.core.util.Lists;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Data
 public class HdfsUtils {
-    private FileSystem fileSystem;
 
     public HdfsUtils(String user, String keytab, String principle, String krb5) {
         try {
@@ -33,11 +35,62 @@ public class HdfsUtils {
             UserGroupInformation.setConfiguration(configuration);
             log.info("set user:" + user + ", keytab:" + keytab);
             UserGroupInformation.loginUserFromKeytab(user, keytab);
-            this.fileSystem = FileSystem.get(configuration);
         } catch (Exception e) {
             log.debug(e.getMessage(), e);
         }
     }
+
+    public String getParentDir(String file, boolean rename) throws Exception {
+        if (rename) {
+            return file;
+        }
+        if (StringUtils.isEmpty(file)) {
+            log.error("Can Not Get Parent Dir of {}", file);
+            return file;
+        }
+        Path path = new Path(file);
+        if (fs(file).isDirectory(path)) {
+            return path.getName();
+        } else if (fs(file).isFile(path)) {
+            return getParentDir(path.getParent().toString(), rename);
+        } else {
+            log.error("Can Not Get Parent Dir of {}", file);
+            return file;
+        }
+    }
+
+    public void renameFile(String file, String postfix, boolean rename) throws Exception {
+        if (!rename) {
+            return;
+        }
+        List<FileStatus> fileStatuses = listFileStatus(file, true);
+        for (FileStatus fileStatus : fileStatuses) {
+            Path origin = fileStatus.getPath();
+            if (origin.toString().contains("$" + postfix)) {
+                continue;
+            }
+            Path target = new Path(origin.toString() + "$" + postfix);
+            log.info("Rename File {} to {}", origin.toString(), target.toString());
+            fs(file).rename(origin, target);
+        }
+    }
+
+    public void resumeFile(String file, String postfix, boolean rename) throws Exception {
+        if (!rename) {
+            return;
+        }
+        List<FileStatus> fileStatuses = listFileStatus(file, true);
+        for (FileStatus fileStatus : fileStatuses) {
+            Path origin = fileStatus.getPath();
+            if (!origin.toString().contains("$" + postfix)) {
+                continue;
+            }
+            Path target = new Path(origin.toString().replace("$" + postfix, ""));
+            log.info("Resume File {} to {}", origin.toString(), target.toString());
+            fs(file).rename(origin, target);
+        }
+    }
+
 
     public FileSystem fs(String path) throws IOException {
         return new Path(path).getFileSystem(new Configuration());
@@ -45,24 +98,30 @@ public class HdfsUtils {
 
     public double getFileSize(String filename) throws Exception {
         log.info("- - - - - - - Get File Size of {} - - - - - - - ", filename);
-        Path path = new Path(filename);
-        FileSystem system = fs(filename);
-        ContentSummary contentSummary = system.getContentSummary(path);
-        return Math.ceil(contentSummary.getLength() / 1024.0 / 1024.0);
+        FileStatus[] fileStatuses = fs(filename).globStatus(new Path(filename));
+        double size = 0.0;
+        for (FileStatus fileStatus : fileStatuses) {
+            if (fileStatus.isFile()) {
+                size += fileStatus.getLen();
+            }
+        }
+        log.info("File Size of {} is {}", filename, size);
+        size = size / 1024.0 / 1024.0;
+        return size;
     }
 
 
-    public boolean distcp(String srcPath, String dstPath, int mapTask) {
+    public boolean distcp(String binPath,String srcPath, String dstPath, int mapTask, Map<String, String> env) {
         try {
             CmdUtils cmdUtils = new CmdUtils();
-            String cmd = String.format("hadoop distcp -Dipc.client.fallback-to-simple-auth-allowed=true -Ddfs.checksum.type=CRC32C -m %s -update -p %s %s", mapTask, srcPath, dstPath);
+            String cmd = String.format("%s/hadoop distcp -Dipc.client.fallback-to-simple-auth-allowed=true -Ddfs.checksum.type=CRC32C -m %s -update  %s %s", binPath,mapTask, srcPath, dstPath);
             log.info(cmd);
-            int code = cmdUtils.execute(cmd.split("\\s+"), log);
+            int code = cmdUtils.execute(cmd.split("\\s+"), log, env);
             if (code != 0) {
-                log.error(cmd + " --- failed with code {}", code);
+                log.error(cmd + "\n --- Failed With Code {}", code);
                 return false;
             }
-            log.info("- -- - - - - -- - - - fileSystem copy finished ,now check them all -- - - -- - -- - - -  !!");
+            log.info("- -- - - - - -- - - - Files Copy Finished ,Now Check Them All -- - - -- - -- - - -  !!");
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,15 +132,21 @@ public class HdfsUtils {
 
     public List<FileStatus> listFileStatus(String file, boolean recusive) throws IOException {
         Path path = new Path(file);
-        final RemoteIterator<LocatedFileStatus> iterator = fileSystem.listFiles(path, recusive);
-        final List<FileStatus> fileList = new ArrayList<>();
-        while (iterator.hasNext()) {
-            fileList.add(iterator.next());
+        if (file.contains("*")) {
+            FileStatus[] fileStatuses = fs(file).globStatus(path);
+            return Arrays.stream(fileStatuses).collect(Collectors.toList());
+        } else {
+            RemoteIterator<LocatedFileStatus> iterator = fs(file).listFiles(new Path(file), recusive);
+            ArrayList<FileStatus> res = Lists.newArrayList();
+            while (iterator.hasNext()) {
+                res.add(iterator.next());
+            }
+            return res;
         }
-        return fileList;
+
     }
 
-    public boolean checkFilesOfTwoPath(List<String> srcPathList, String dstPath) {
+    public boolean checkFilesOfTwoPath(List<String> srcPathList, String dstPath, boolean rename) {
         try {
             log.info("- - - - - - - Check File Num of Two Path - - - - - - -");
             log.info("SrcPath: {}", Joiner.on(",").join(srcPathList));
@@ -93,21 +158,22 @@ public class HdfsUtils {
             log.info("File Num of Input is {}", srcFiles.size());
             List<FileStatus> dstFiles = listFileStatus(dstPath, true);
             log.info("File Num of OutPut is {}", dstFiles.size());
-            if (srcFiles.size() != dstFiles.size()) {
-                log.error("File Num of Two Pathes is Not Same !!!");
-                return false;
-            } else {
-                log.info("File Num of Two Pathes is Same ~~~");
-            }
+
             for (FileStatus srcFile : srcFiles) {
+                String filename = srcFile.getPath().getName();
+                String postfix = srcFile.getPath().getParent().getName();
+                String targetFile = rename ? filename + postfix : filename;
                 for (FileStatus dstFile : dstFiles) {
-                    double srcFileSize = getFileSize(srcFile.getPath().getName());
-                    double dstFileSize = getFileSize(dstFile.getPath().getName());
-                    if (Math.abs(srcFileSize - dstFileSize) > 1) {
-                        log.info("{} size :", srcFile.getPath());
-                        log.info("{} size :", dstFile.getPath());
-                        log.error("$ $ Two File Has Diff Size $ $");
-                        return false;
+                    if (dstFile.getPath().getName().equals(targetFile)) {
+                        double srcFileSize = getFileSize(srcFile.getPath().toString());
+                        double dstFileSize = getFileSize(dstFile.getPath().toString());
+                        log.info("{} size :{}", srcFile.getPath(), srcFileSize);
+                        log.info("{} size :{}", dstFile.getPath(), dstFileSize);
+                        if (Math.abs(srcFileSize - dstFileSize) > 1) {
+                            log.error("$ $ Two File Has Diff Size $ $");
+                            return false;
+                        }
+                        log.info("- - - - - - - - - - - - - - - - - - - - - - - -");
                     }
                 }
             }

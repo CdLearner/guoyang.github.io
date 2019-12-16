@@ -7,6 +7,7 @@ import org.zeroturnaround.exec.stream.slf4j.Slf4jStream;
 
 import java.io.*;
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -76,15 +77,17 @@ public class CmdUtils {
             return 1;
         }
     }
-    public int execute(String[] cmd, org.slf4j.Logger logger) {
+
+    public int execute(String[] cmd, org.slf4j.Logger logger, Map<String, String> env) {
 
         try {
-            return executor.command(cmd).redirectOutput(Slf4jStream.of(logger).asInfo()).execute().getExitValue();
+            return executor.command(cmd).environment(env).redirectOutput(Slf4jStream.of(logger).asInfo()).execute().getExitValue();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return 1;
         }
     }
+
     public int execute(List<String> cmd, org.slf4j.Logger logger) {
 
         try {

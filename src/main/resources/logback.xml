@@ -9,10 +9,10 @@
 
     <!-- 注意这里一定要放到springProfile里, 否则在你本机执行的时候还是会去找相应的文件 -->
     <appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>./logs/alpha-site.log</file>
+        <file>./logs/aggregate.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>./logs/alpha-site.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>./logs/aggregate.%d{yyyy-MM-dd}.log</FileNamePattern>
             <!--日志文件保留天数-->
             <maxHistory>10</maxHistory>
             <totalSizeCap>10GB</totalSizeCap>
@@ -31,31 +31,11 @@
         <queueSize>500</queueSize>
         <appender-ref ref="ROLLING_FILE"/>
     </appender>
-
-    <springProfile name="prod">
-        <root level="INFO">
-            <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="ASYNC_FILE"/>
-        </root>
-    </springProfile>
-
-    <springProfile name="dev">
-        <root level="INFO">
-            <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="ASYNC_FILE"/>
-        </root>
-    </springProfile>
-
-    <springProfile name="junit">
-        <root level="INFO">
-            <appender-ref ref="CONSOLE"/>
-        </root>
-    </springProfile>
-    <springProfile name="test">
-        <root level="INFO">
-            <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="ASYNC_FILE"/>
-        </root>
-    </springProfile>
+    <logger name="org.apache.hadoop" level="info" additivity="false"/>
+    <root level="INFO">
+        <level>info</level>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC_FILE"/>
+    </root>
 
 </configuration>
