@@ -19,6 +19,9 @@ public class HiveMetaUtils {
 
     public HiveMetaUtils(String url, String timeout) throws Exception {
         HiveConf conf = new HiveConf();
+        conf.setVar(HiveConf.ConfVars.METASTORE_KERBEROS_KEYTAB_FILE,"");
+        conf.setVar(HiveConf.ConfVars.METASTORE_KERBEROS_PRINCIPAL,"");
+        conf.setVar(HiveConf.ConfVars.METASTORE_USE_THRIFT_SASL,"true");
         conf.setVar(HiveConf.ConfVars.METASTORE_CLIENT_SOCKET_TIMEOUT, timeout);
         conf.setVar(HiveConf.ConfVars.METASTOREURIS, url);
         this.client = new HiveMetaStoreClient(conf);
@@ -36,7 +39,6 @@ public class HiveMetaUtils {
     }
 
     public void addPartition(String database, String tableName, List<String> partitionVals, String location) throws Exception {
-
         try {
             client.getPartition(database, tableName, partitionVals);
             alterPartition(database, tableName, partitionVals, location);
