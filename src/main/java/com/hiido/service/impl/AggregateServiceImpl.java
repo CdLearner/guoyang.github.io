@@ -138,7 +138,7 @@ public class AggregateServiceImpl implements TransferService {
             log.info("Java Bin Path:{}", java);
             String principle = commandLine.getOptionValue("principle", "nn/_HOST@YYDEVOPS.COM");
             hdfsUtils = new HdfsUtils(user, keytab, principle, "");
-            hiveMetaUtils = new HiveMetaUtils(metaUri, "5");
+            hiveMetaUtils = new HiveMetaUtils(metaUri, "5", user);
             List<String> inputList = Splitter.on(",").trimResults().splitToList(input);
             Map<String, String> partitionMap = Splitter.on(",").withKeyValueSeparator("=").split(partition);
 

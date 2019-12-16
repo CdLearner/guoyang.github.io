@@ -1,0 +1,9 @@
+target/
+.idea/
+logs/
+*.jar
+*.tar.gz
+*.tar
+*.gz
+*.zip
+*.log

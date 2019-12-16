@@ -1,6 +1,7 @@
 package com.hiido.utils;
 
 import com.google.common.base.Joiner;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hadoop.hive.conf.HiveConf;
 import org.apache.hadoop.hive.metastore.HiveMetaStoreClient;
@@ -14,13 +15,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Data
 public class HiveMetaUtils {
     HiveMetaStoreClient client;
 
-    public HiveMetaUtils(String url, String timeout) throws Exception {
+    public HiveMetaUtils(String url, String timeout,String user) throws Exception {
         HiveConf conf = new HiveConf();
-        conf.setVar(HiveConf.ConfVars.METASTORE_KERBEROS_KEYTAB_FILE,"");
-        conf.setVar(HiveConf.ConfVars.METASTORE_KERBEROS_PRINCIPAL,"");
+        conf.setVar(HiveConf.ConfVars.METASTORE_KERBEROS_PRINCIPAL,user+"/_HOST@YYDEVOPS.COM");
         conf.setVar(HiveConf.ConfVars.METASTORE_USE_THRIFT_SASL,"true");
         conf.setVar(HiveConf.ConfVars.METASTORE_CLIENT_SOCKET_TIMEOUT, timeout);
         conf.setVar(HiveConf.ConfVars.METASTOREURIS, url);
