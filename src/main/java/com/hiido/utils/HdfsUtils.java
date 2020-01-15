@@ -7,9 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
+import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.hadoop.security.UserGroupInformation;
 
 import java.io.IOException;
+import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +42,16 @@ public class HdfsUtils {
         }
     }
 
+    public void mkdir(String path) throws Exception {
+        FileSystem fs = fs(path);
+        Path p = new Path(path);
+        if (!fs.exists(p)) {
+            log.info("{} Does Not Exist,Now Create It", path);
+            fs.mkdirs(p, FsPermission.getCachePoolDefault());
+            fs.setPermission(p, FsPermission.getCachePoolDefault());
+        }
+    }
+
     public String getParentDir(String file, boolean rename) throws Exception {
         if (rename) {
             return file;
@@ -59,42 +71,46 @@ public class HdfsUtils {
         }
     }
 
-    public void renameFile(String file, String postfix, boolean rename) throws Exception {
+
+    public void addSuffix(String file, String suffix, boolean rename) throws Exception {
         if (!rename) {
             return;
         }
         List<FileStatus> fileStatuses = listFileStatus(file, true);
         for (FileStatus fileStatus : fileStatuses) {
             Path origin = fileStatus.getPath();
-            if (origin.toString().contains("$" + postfix)) {
+            if (origin.toString().contains("$" + suffix)) {
                 continue;
             }
-            Path target = new Path(origin.toString() + "$" + postfix);
+            Path target = new Path(origin.toString() + "$" + suffix);
             log.info("Rename File {} to {}", origin.toString(), target.toString());
             fs(file).rename(origin, target);
         }
     }
 
-    public void resumeFile(String file, String postfix, boolean rename) throws Exception {
+    public void removeSuffix(String file, String suffix, boolean rename) throws Exception {
         if (!rename) {
             return;
         }
         List<FileStatus> fileStatuses = listFileStatus(file, true);
         for (FileStatus fileStatus : fileStatuses) {
             Path origin = fileStatus.getPath();
-            if (!origin.toString().contains("$" + postfix)) {
+            if (!origin.toString().contains("$" + suffix)) {
                 continue;
             }
-            Path target = new Path(origin.toString().replace("$" + postfix, ""));
+            Path target = new Path(origin.toString().replace("$" + suffix, ""));
             log.info("Resume File {} to {}", origin.toString(), target.toString());
             fs(file).rename(origin, target);
         }
     }
 
 
+
+
     public FileSystem fs(String path) throws IOException {
         return new Path(path).getFileSystem(new Configuration());
     }
+
 
     public double getFileSize(String filename) throws Exception {
         log.info("- - - - - - - Get File Size of {} - - - - - - - ", filename);
@@ -111,10 +127,10 @@ public class HdfsUtils {
     }
 
 
-    public boolean distcp(String binPath,String srcPath, String dstPath, int mapTask, Map<String, String> env) {
+    public boolean distcp(String binPath, String srcPath, String dstPath, int mapTask, Map<String, String> env, String queeue, String name) {
         try {
             CmdUtils cmdUtils = new CmdUtils();
-            String cmd = String.format("%s/hadoop distcp -Dipc.client.fallback-to-simple-auth-allowed=true -Ddfs.checksum.type=CRC32C -m %s -update  %s %s", binPath,mapTask, srcPath, dstPath);
+            String cmd = String.format("%s/hadoop distcp -Dmapreduce.job.name=%s -Dmapreduce.job.queuename=%s  -Dipc.client.fallback-to-simple-auth-allowed=true -Ddfs.checksum.type=CRC32C -m %s -update  %s %s", binPath, name, queeue, mapTask, srcPath, dstPath);
             log.info(cmd);
             int code = cmdUtils.execute(cmd.split("\\s+"), log, env);
             if (code != 0) {
@@ -130,7 +146,7 @@ public class HdfsUtils {
         }
     }
 
-    public List<FileStatus> listFileStatus(String file, boolean recusive) throws IOException {
+    public List<FileStatus> listFileStatus(String file, boolean recusive) throws Exception {
         Path path = new Path(file);
         if (file.contains("*")) {
             FileStatus[] fileStatuses = fs(file).globStatus(path);
@@ -145,6 +161,15 @@ public class HdfsUtils {
         }
 
     }
+
+    public void checkInputFileNum(List<String> srcPathList) throws Exception {
+        int sum = 0;
+        for (String path : srcPathList) {
+            sum += listFileStatus(path, true).size();
+        }
+        log.info("File Num of Input is {}", sum);
+    }
+
 
     public boolean checkFilesOfTwoPath(List<String> srcPathList, String dstPath, boolean rename) {
         try {
@@ -163,8 +188,10 @@ public class HdfsUtils {
                 String filename = srcFile.getPath().getName();
                 String postfix = srcFile.getPath().getParent().getName();
                 String targetFile = rename ? filename + postfix : filename;
+                boolean has = false;
                 for (FileStatus dstFile : dstFiles) {
                     if (dstFile.getPath().getName().equals(targetFile)) {
+                        has = true;
                         double srcFileSize = getFileSize(srcFile.getPath().toString());
                         double dstFileSize = getFileSize(dstFile.getPath().toString());
                         log.info("{} size :{}", srcFile.getPath(), srcFileSize);
@@ -175,6 +202,10 @@ public class HdfsUtils {
                         }
                         log.info("- - - - - - - - - - - - - - - - - - - - - - - -");
                     }
+                }
+                if (!has) {
+                    log.error("{} Is Not Found In {}", srcFile.getPath().toString(), dstPath);
+                    return false;
                 }
             }
             log.info("- - - - - - - - - Copy Data Success ,All Files Are Same - - - - - - - - - ");

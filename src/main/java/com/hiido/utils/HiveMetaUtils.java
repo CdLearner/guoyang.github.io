@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 public class HiveMetaUtils {
     HiveMetaStoreClient client;
 
-    public HiveMetaUtils(String url, String timeout,String user) throws Exception {
+    public HiveMetaUtils(String url, String timeout) throws Exception {
         HiveConf conf = new HiveConf();
-        conf.setVar(HiveConf.ConfVars.METASTORE_KERBEROS_PRINCIPAL,user+"/_HOST@YYDEVOPS.COM");
+        conf.setVar(HiveConf.ConfVars.METASTORE_KERBEROS_PRINCIPAL,"hadoop/_HOST@YYDEVOPS.COM");
         conf.setVar(HiveConf.ConfVars.METASTORE_USE_THRIFT_SASL,"true");
         conf.setVar(HiveConf.ConfVars.METASTORE_CLIENT_SOCKET_TIMEOUT, timeout);
         conf.setVar(HiveConf.ConfVars.METASTOREURIS, url);

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AggregateServiceImpl implements TransferService {
 
+
     CommandLine resolveArgs(String[] args) throws Exception {
         Options options = new Options();
         options.addOption("help", false, "help information");
@@ -89,6 +90,16 @@ public class AggregateServiceImpl implements TransferService {
                 .desc("Java Home")
                 .build();
 
+        Option queue = Option.builder("q")
+                .longOpt("queue")
+                .hasArg()
+                .desc("Yarn Queue")
+                .build();
+        Option name = Option.builder("n")
+                .longOpt("queue")
+                .hasArg()
+                .desc("job name")
+                .build();
         options.addOption(input);
         options.addOption(output);
         options.addOption(metaUri);
@@ -100,6 +111,8 @@ public class AggregateServiceImpl implements TransferService {
         options.addOption(rename);
         options.addOption(hadoop);
         options.addOption(java);
+        options.addOption(queue);
+        options.addOption(name);
 
         CommandLineParser parser = new DefaultParser();
         return parser.parse(options, args);
@@ -136,12 +149,21 @@ public class AggregateServiceImpl implements TransferService {
             log.info("Hadoop Bin Path:{}", bin);
             String java = commandLine.getOptionValue('j');
             log.info("Java Bin Path:{}", java);
+
+            String queue = commandLine.getOptionValue('q', "default");
+            log.info("Yarn Queue:{}", queue);
+            String name = commandLine.getOptionValue('n', database + "." + tableName + "[" + partition + "]");
+            log.info("Job Name:{}", name);
+
             String principle = commandLine.getOptionValue("principle", "nn/_HOST@YYDEVOPS.COM");
-            hdfsUtils = new HdfsUtils(user, keytab, principle, "");
-            hiveMetaUtils = new HiveMetaUtils(metaUri, "5", user);
+            hdfsUtils = new HdfsUtils("", user, keytab, principle);
+            hdfsUtils.mkdir(output);
+
+
+            hiveMetaUtils = new HiveMetaUtils(metaUri, "5");
             List<String> inputList = Splitter.on(",").trimResults().splitToList(input);
             Map<String, String> partitionMap = Splitter.on(",").withKeyValueSeparator("=").split(partition);
-
+            hdfsUtils.checkInputFileNum(inputList);
             Map<String, String> env = Maps.newHashMap();
             env.put("KRB5PRINCIPAL", user);
             env.put("KRB5KEYTAB", keytab);
@@ -151,12 +173,12 @@ public class AggregateServiceImpl implements TransferService {
                 log.info("拷贝文件 {} 到 {}", srcPath, output);
                 int mapNum = (int) Math.ceil(hdfsUtils.getFileSize(srcPath) / 128.0);
                 String postfix = hdfsUtils.getParentDir(srcPath, rename);
-                hdfsUtils.renameFile(srcPath, postfix, rename);
-                if (hdfsUtils.distcp(bin, srcPath, output, mapNum, env)) {
+                hdfsUtils.addSuffix(srcPath, postfix, rename);
+                if (hdfsUtils.distcp(bin, srcPath, output, mapNum, env, queue, name)) {
                     log.info("- - - - - - - - - 数据传输完成 - - - - - - - - - - -\n\n");
-                    hdfsUtils.resumeFile(srcPath, postfix, rename);
+                    hdfsUtils.removeSuffix(srcPath, postfix, rename);
                 } else {
-                    hdfsUtils.resumeFile(srcPath, postfix, rename);
+                    hdfsUtils.removeSuffix(srcPath, postfix, rename);
                     log.info("- - - - - - - - - 数据传输失败 - - - - - - - - - - -\n\n");
                     throw new Exception("数据传输失败，失败文件为:" + srcPath);
                 }
@@ -173,8 +195,9 @@ public class AggregateServiceImpl implements TransferService {
                 log.error("_-_-_-_-_-_-_-_-_-数据不一致,任务失败_-_-_-_-_-_-_-_-_-");
                 System.exit(-1);
             }
-        } catch (Exception e) {
-            log.error("- - - - - - - - - - 任务失败，抛出未知异常 - - - - - - - - - - ");
+        } catch (
+                Exception e) {
+            log.error("- - - - - -  - - - - 任务失败，抛出未知异常 - - - - - - - - - - ");
             log.error(e.getMessage(), e);
             System.exit(-1);
         } finally {
