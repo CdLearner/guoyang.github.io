@@ -19,10 +19,20 @@ import java.util.stream.Collectors;
 public class HiveMetaUtils {
     HiveMetaStoreClient client;
 
+    public HiveMetaUtils(String url, String timeout,String sasl,String principal) throws Exception {
+        HiveConf conf = new HiveConf();
+        conf.setVar(HiveConf.ConfVars.METASTORE_KERBEROS_PRINCIPAL,principal);
+        log.info("set {}:{}",HiveConf.ConfVars.METASTORE_KERBEROS_PRINCIPAL,principal);
+        conf.setVar(HiveConf.ConfVars.METASTORE_USE_THRIFT_SASL,sasl);
+        log.info("set {}:{}",HiveConf.ConfVars.METASTORE_USE_THRIFT_SASL,sasl);
+        conf.setVar(HiveConf.ConfVars.METASTORE_CLIENT_SOCKET_TIMEOUT, timeout);
+        log.info("set {}:{}",HiveConf.ConfVars.METASTORE_CLIENT_SOCKET_TIMEOUT,timeout);
+        conf.setVar(HiveConf.ConfVars.METASTOREURIS, url);
+        log.info("set {}:{}",HiveConf.ConfVars.METASTOREURIS,url);
+        this.client = new HiveMetaStoreClient(conf);
+    }
     public HiveMetaUtils(String url, String timeout) throws Exception {
         HiveConf conf = new HiveConf();
-        conf.setVar(HiveConf.ConfVars.METASTORE_KERBEROS_PRINCIPAL,"hadoop/_HOST@YYDEVOPS.COM");
-        conf.setVar(HiveConf.ConfVars.METASTORE_USE_THRIFT_SASL,"true");
         conf.setVar(HiveConf.ConfVars.METASTORE_CLIENT_SOCKET_TIMEOUT, timeout);
         conf.setVar(HiveConf.ConfVars.METASTOREURIS, url);
         this.client = new HiveMetaStoreClient(conf);

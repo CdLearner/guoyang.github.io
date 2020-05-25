@@ -1,0 +1,294 @@
+<configuration  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+    <property>
+        <name>fs.AbstractFileSystem.file.impl</name>
+        <value>org.apache.hadoop.fs.local.LocalFs</value>
+    </property>
+
+    <property>
+        <name>fs.AbstractFileSystem.hdfs.impl</name>
+        <value>org.apache.hadoop.fs.Hdfs</value>
+    </property>
+
+    <property>
+        <name>fs.azure.user.agent.prefix</name>
+        <value>User-Agent: APN/1.0 Hortonworks/1.0 HDP/</value>
+    </property>
+
+    <!--<property>-->
+        <!--<name>fs.defaultFS</name>-->
+        <!--<value>hdfs://hcatcluster</value>-->
+        <!--<final>true</final>-->
+    <!--</property>-->
+
+    <property>
+        <name>fs.du.interval</name>
+        <value>3600000</value>
+    </property>
+
+    <property>
+        <name>fs.gs.application.name.suffix</name>
+        <value> (GPN:Hortonworks; version 1.0) HDP/</value>
+    </property>
+
+    <property>
+        <name>fs.gs.path.encoding</name>
+        <value>uri-path</value>
+    </property>
+
+    <property>
+        <name>fs.gs.working.dir</name>
+        <value>/</value>
+    </property>
+
+    <property>
+        <name>fs.s3a.fast.upload</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>fs.s3a.fast.upload.buffer</name>
+        <value>disk</value>
+    </property>
+
+    <property>
+        <name>fs.s3a.multipart.size</name>
+        <value>67108864</value>
+    </property>
+
+    <property>
+        <name>fs.s3a.user.agent.prefix</name>
+        <value>User-Agent: APN/1.0 Hortonworks/1.0 HDP/</value>
+    </property>
+
+    <property>
+        <name>fs.trash.checkpoint.interval</name>
+        <value>1440</value>
+    </property>
+
+    <property>
+        <name>fs.trash.interval</name>
+        <value>4320</value>
+    </property>
+
+    <property>
+        <name>ha.failover-controller.active-standby-elector.zk.op.retries</name>
+        <value>120</value>
+    </property>
+
+    <property>
+        <name>ha.zookeeper.acl</name>
+        <value>sasl:nn:rwcda</value>
+    </property>
+
+    <property>
+        <name>ha.zookeeper.quorum</name>
+        <value>fs-hiido-jnzk-21-116-2.hiido.host.yydevops.com:2181,fs-hiido-jnzk-21-116-3.hiido.host.yydevops.com:2181,fs-hiido-jnzk-21-116-4.hiido.host.yydevops.com:2181,fs-hiido-jnzk-21-116-5.hiido.host.yydevops.com:2181,fs-hiido-jnzk-21-116-6.hiido.host.yydevops.com:2181</value>
+    </property>
+
+    <property>
+        <name>hadoop.http.authentication.kerberos.keytab</name>
+        <value>/etc/security/keytabs/spnego.service.keytab</value>
+    </property>
+
+    <property>
+        <name>hadoop.http.authentication.kerberos.principal</name>
+        <value>HTTP/_HOST@YYDEVOPS.COM</value>
+    </property>
+
+    <property>
+        <name>hadoop.http.authentication.signature.secret.file</name>
+        <value>/etc/security/http_secret</value>
+    </property>
+
+    <property>
+        <name>hadoop.http.authentication.simple.anonymous.allowed</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>hadoop.http.authentication.type</name>
+        <value>simple</value>
+    </property>
+
+    <property>
+        <name>hadoop.http.cross-origin.allowed-headers</name>
+        <value>X-Requested-With,Content-Type,Accept,Origin,WWW-Authenticate,Accept-Encoding,Transfer-Encoding</value>
+    </property>
+
+    <property>
+        <name>hadoop.http.cross-origin.allowed-methods</name>
+        <value>GET,PUT,POST,OPTIONS,HEAD,DELETE</value>
+    </property>
+
+    <property>
+        <name>hadoop.http.cross-origin.allowed-origins</name>
+        <value>*</value>
+    </property>
+
+    <property>
+        <name>hadoop.http.cross-origin.max-age</name>
+        <value>1800</value>
+    </property>
+
+    <property>
+        <name>hadoop.http.filter.initializers</name>
+        <value>org.apache.hadoop.security.AuthenticationFilterInitializer,org.apache.hadoop.security.HttpCrossOriginFilterInitializer</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.ambari-server-athena.groups</name>
+        <value>*</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.ambari-server-athena.hosts</name>
+        <value>fs-ambari-server.hiido.host.yydevops.com</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.hadoop.groups</name>
+        <value>*</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.hadoop.hosts</name>
+        <value>*</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.hdfs.groups</name>
+        <value>*</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.hdfs.hosts</name>
+        <value>*</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.HTTP.groups</name>
+        <value>users</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.yarn.groups</name>
+        <value>*</value>
+    </property>
+
+    <property>
+        <name>hadoop.proxyuser.yarn.hosts</name>
+        <value>fs-hiido-yarn-rm1.hiido.host.yydevops.com,fs-hiido-yarn-rm2.hiido.host.yydevops.com</value>
+    </property>
+
+    <property>
+        <name>hadoop.rpc.protection</name>
+        <value>authentication,privacy</value>
+    </property>
+
+    <property>
+        <name>hadoop.security.auth_to_local</name>
+        <value>RULE:[1:$1@$0](hbase-athena@YYDEVOPS.COM)s/.*/hbase/
+            RULE:[1:$1@$0](hbase-athena@YYDEVOPS.COM)s/.*/yarn-ats/
+            RULE:[1:$1@$0](hdfs-athena@YYDEVOPS.COM)s/.*/hdfs/
+            RULE:[1:$1@$0](yarn-ats-athena@YYDEVOPS.COM)s/.*/yarn-ats/
+            RULE:[1:$1@$0](.*@YYDEVOPS.COM)s/@.*//
+            RULE:[2:$1@$0](amshbase@YYDEVOPS.COM)s/.*/ams/
+            RULE:[2:$1@$0](amsmon@YYDEVOPS.COM)s/.*/ams/
+            RULE:[2:$1@$0](amszk@YYDEVOPS.COM)s/.*/ams/
+            RULE:[2:$1@$0](dn@YYDEVOPS.COM)s/.*/hdfs/
+            RULE:[2:$1@$0](hbase@YYDEVOPS.COM)s/.*/hbase/
+            RULE:[2:$1@$0](hbase@YYDEVOPS.COM)s/.*/yarn-ats/
+            RULE:[2:$1@$0](jhs@YYDEVOPS.COM)s/.*/mapred/
+            RULE:[2:$1@$0](jn@YYDEVOPS.COM)s/.*/hdfs/
+            RULE:[2:$1@$0](nm@YYDEVOPS.COM)s/.*/yarn/
+            RULE:[2:$1@$0](nn@YYDEVOPS.COM)s/.*/hdfs/
+            RULE:[2:$1@$0](rangeradmin@YYDEVOPS.COM)s/.*/ranger/
+            RULE:[2:$1@$0](rangerusersync@YYDEVOPS.COM)s/.*/rangerusersync/
+            RULE:[2:$1@$0](rm@YYDEVOPS.COM)s/.*/yarn/
+            RULE:[2:$1@$0](yarn@YYDEVOPS.COM)s/.*/yarn/
+            RULE:[2:$1@$0](yarn-ats-hbase@YYDEVOPS.COM)s/.*/yarn-ats/
+            DEFAULT</value>
+    </property>
+
+    <property>
+        <name>hadoop.security.authentication</name>
+        <value>kerberos</value>
+    </property>
+
+    <property>
+        <name>hadoop.security.authorization</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>hadoop.security.instrumentation.requires.admin</name>
+        <value>false</value>
+    </property>
+
+    <property>
+        <name>io.compression.codecs</name>
+        <value>org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.SnappyCodec</value>
+    </property>
+
+    <property>
+        <name>io.file.buffer.size</name>
+        <value>131072</value>
+    </property>
+
+    <property>
+        <name>io.serializations</name>
+        <value>org.apache.hadoop.io.serializer.WritableSerialization</value>
+    </property>
+
+    <property>
+        <name>ipc.client.connect.max.retries</name>
+        <value>50</value>
+    </property>
+
+    <property>
+        <name>ipc.client.connection.maxidletime</name>
+        <value>30000</value>
+    </property>
+
+    <property>
+        <name>ipc.client.fallback-to-simple-auth-allowed</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>ipc.client.idlethreshold</name>
+        <value>8000</value>
+    </property>
+
+    <property>
+        <name>ipc.maximum.data.length</name>
+        <value>134217728</value>
+    </property>
+
+    <property>
+        <name>ipc.server.listen.queue.size</name>
+        <value>128</value>
+    </property>
+
+    <property>
+        <name>ipc.server.read.threadpool.size</name>
+        <value>7</value>
+    </property>
+
+    <property>
+        <name>ipc.server.tcpnodelay</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>mapreduce.jobtracker.webinterface.trusted</name>
+        <value>false</value>
+    </property>
+
+    <property>
+        <name>net.topology.script.file.name</name>
+        <value>/etc/hadoop/conf/topology_script.py</value>
+    </property>
+
+</configuration>

@@ -11,7 +11,6 @@ import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.hadoop.security.UserGroupInformation;
 
 import java.io.IOException;
-import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -103,8 +102,6 @@ public class HdfsUtils {
             fs(file).rename(origin, target);
         }
     }
-
-
 
 
     public FileSystem fs(String path) throws IOException {

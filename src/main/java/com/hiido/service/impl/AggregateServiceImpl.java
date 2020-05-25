@@ -7,6 +7,8 @@ import com.hiido.utils.HdfsUtils;
 import com.hiido.utils.HiveMetaUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.*;
+import org.apache.hadoop.fs.FileStatus;
+import org.apache.hadoop.hive.metastore.api.Table;
 
 import java.util.List;
 import java.util.Map;
@@ -118,6 +120,30 @@ public class AggregateServiceImpl implements TransferService {
         return parser.parse(options, args);
     }
 
+    @Override
+    public void test() throws Exception {
+        String user = "hdfs";
+        String keytab = "/etc/hdfs.keytab";
+        String principle = "hdfs/_HOST@YYDEVOPS.COM";
+        String sasl = "true";
+        HdfsUtils hdfsUtils = new HdfsUtils(user, keytab, principle, "");
+        List<FileStatus> fileStatuses = hdfsUtils.listFileStatus("hdfs://yycluster01/tmp", false);
+        for (FileStatus fileStatus : fileStatuses) {
+            log.info(fileStatus.getPath().toString());
+        }
+        String metaUri = "thrift://fs-hiido-metastore-21-96-57.hiido.host.yydevops.com:9094";
+        HiveMetaUtils hiveMetaUtils = new HiveMetaUtils(metaUri, "5", sasl, principle);
+        Table table = hiveMetaUtils.getClient().getTable("temp", "temp_gy");
+        log.info(table.getSd().getLocation());
+        table.getSd().setLocation("hdfs://hdfscluster/user/hiido/warehouse/temp.db/temp_test");
+        try {
+            hiveMetaUtils.getClient().alter_table("temp", "temp_gy", table);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        table = hiveMetaUtils.getClient().getTable("temp", "temp_gy");
+        log.info(table.getSd().getLocation());
+    }
 
     @Override
     public void processJob(String... args) throws Exception {
@@ -155,12 +181,12 @@ public class AggregateServiceImpl implements TransferService {
             String name = commandLine.getOptionValue('n', database + "." + tableName + "[" + partition + "]");
             log.info("Job Name:{}", name);
 
-            String principle = commandLine.getOptionValue("principle", "nn/_HOST@YYDEVOPS.COM");
-            hdfsUtils = new HdfsUtils("", user, keytab, principle);
+            String principle = commandLine.getOptionValue("principle", user + "/_HOST@YYDEVOPS.COM");
+            hdfsUtils = new HdfsUtils(user, keytab, principle, "");
+
+            hiveMetaUtils = new HiveMetaUtils(metaUri, "5", "true", "hdfs/_HOST@YYDEVPS.COM");
             hdfsUtils.mkdir(output);
 
-
-            hiveMetaUtils = new HiveMetaUtils(metaUri, "5");
             List<String> inputList = Splitter.on(",").trimResults().splitToList(input);
             Map<String, String> partitionMap = Splitter.on(",").withKeyValueSeparator("=").split(partition);
             hdfsUtils.checkInputFileNum(inputList);
